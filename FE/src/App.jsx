@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Home from "./pages/Home/index";
+import Admin from "./pages/Admin/index";
+import AdminAdd from "./pages/Admin Add/index";
+import Basket from "./pages/Basket/index";
+import WishList from "./pages/Wish List/index";
+import DetailPage from "./pages/Detail Page/index";
+import NoPage from "./pages/No Page/index";
+import { BrowserRouter, Route, Routes } from "react-router";
+
+import "./App.css";
+import Layout from "./components/Layout";
+import MainProvider from "./context/MainProvider";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <MainProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/adminadd" element={<AdminAdd />} />
+              <Route path="/basket" element={<Basket />} />
+              <Route path="/wishlist" element={<WishList />} />
+              <Route path="/detail/:id" element={<DetailPage />} />
+              <Route path="*" element={<NoPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </MainProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
